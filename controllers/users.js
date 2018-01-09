@@ -3,7 +3,7 @@ const User = require('../models/schemas/user')
 /*
 * C.R.U.D. Controllers
 */
-exports.createUser = (req, res) => {
+exports.createUser = (req, res, next) => {
   if (!req.body.email) {
     return res.status(400).send('Must provide email')
   }
@@ -13,49 +13,61 @@ exports.createUser = (req, res) => {
   if (!req.body.name) {
     return res.status(400).send('Must provide name')
   }
+  if (!req.body.phoneProvider) {
+   return res.status(400).send('Must provide phone provider') 
+  }
+  if (!req.body.phoneNumber) {
+   return res.status(400).send('Must provide phone number') 
+  }
+  if (!req.body.classYear) {
+   return res.status(400).send('Must provide class year') 
+  }
   const userData = {
     email: req.body.email,
     hash: req.body.password,
-    name: req.body.name
+    name: req.body.name,
+    phoneProvider: req.body.phoneProvider,
+    phoneNumber: req.body.phoneNumber,
+    classYear: req.body.classYear,
   }
   const newUser = new User(userData)
   newUser.save((err) => {
-    if (err) return res.status(500).send('Could not create')
+    if (err) return next(err)
     return res.json(newUser)
   })
 }
 
-exports.getAllUsers = (req, res) => {
+exports.getAllUsers = (req, res, next) => {
   User.find({}, (err, users) => {
-    if (err) return res.status(500).send('Error: ' + err)
+    if (err) return next(err)
     return res.json(users)
   })
 }
 
-exports.getUserById = (req, res) => {
+exports.getUserById = (req, res, next) => {
   User.findById(req.params.userId, (err, user) => {
-    if (err) return res.sendStatus(500)
+    if (err) return next(err)
     if (!user) return res.status(404).send('No user with id: ' + req.params.userId)
     return res.json(user)    
   })
 }
 
-exports.getUserByEmail = (req, res) => {
+exports.getUserByEmail = (req, res, next) => {
   User.findOne({ email: req.params.email }, (err, user) => {
-    if (err) return res.sendStatus(500)
+    if (err) return next(err)
     if (!user) return res.status(404).send('No user with email: ' + req.params.email)
     return res.json(user)    
   })
 }
 
-exports.updateUser = (req, res) => {
+exports.updateUser = (req, res, next) => {
   User.findOneAndUpdate({ _id: req.params.userId }, req.body, {}, (err, user) => {
-    if (err) return res.sendStatus(500)
+    if (err) return next(err)
     if (!user) return res.status(404).send('Could not find user: ' + req.params.userId)
-    return res.json(user)
+    return res.send('Updated user!')
   })
 }
-exports.deleteUser = (req, res) => {
+exports.deleteUser = (req, res, next) => {
   User.findByIdAndRemove(req.params.userId, (err, user) => {
     if (err) return res.sendStatus(500)
     if (!user) return res.status(404).send('Could not find user ' + req.params.userId)
