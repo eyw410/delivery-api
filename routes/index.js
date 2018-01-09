@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const users = require('../controllers/users')
+const items = require('../controllers/items')
 
 
 /*
@@ -28,8 +29,15 @@ get userByEmail
 */ 
 
 /*
-* ~~~~ Routes for coupons ~~~~
+* ~~~~ Routes for items ~~~~
 */
+router.route('/items')
+	.get(items.getAllItems)
+	.post(items.createItem)
 
+router.route('/items/:itemId/id')
+	.get(items.getItemById)
+	.put(items.updateItem)
+	.delete(items.deleteItem)
 
 module.exports = router

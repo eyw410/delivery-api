@@ -5,12 +5,19 @@ const userSchema = new Schema({
     email: { type: String, unique: true },
     hash: String,
     name: String,
-    phoneProvider: String,
-    phoneNumber: String,
-    preferences: [String],
+    isAdmin: Boolean,
+    address: String,
     classYear: Number,
-    isBusiness: Boolean,
-    isAdmin: Boolean
+    orders: [{
+      items: [{
+        itemId: { type: Schema.ObjectId, ref: 'Item'},
+        quantity: Number,
+        price: Number
+      }],
+      purchasedDate: Date,
+      deliveredDate: Date,
+      isPaid: Boolean
+    }]
   },
   {
     toObject: { getters: true },

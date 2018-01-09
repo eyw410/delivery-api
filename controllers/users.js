@@ -16,7 +16,12 @@ exports.createUser = (req, res) => {
   const userData = {
     email: req.body.email,
     hash: req.body.password,
-    name: req.body.name
+    name: req.body.name,
+    isAdmin: req.body.isAdmin,
+    address: req.body.address,
+    classYear: req.body.classYear,
+    orders: [],
+
   }
   const newUser = new User(userData)
   newUser.save((err) => {
