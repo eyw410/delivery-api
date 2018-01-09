@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "mongo": "mongod -f ./models/mongod.conf"
+    "mongo": "mongod -f ./models/mongod.conf",
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
