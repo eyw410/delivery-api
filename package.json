@@ -4,7 +4,11 @@
   "description": "API for our Crimson Coupon app",
   "main": "app.js",
   "scripts": {
+<<<<<<< HEAD
     "start": "node app.js",
+=======
+    "start": "nodemon app.js",
+>>>>>>> 7df4e59f4aa2e75fa8e73a1223169ed91f35e9c9
     "mongo": "mongod -f ./models/mongod.conf"
   },
   "repository": {

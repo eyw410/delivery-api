@@ -75,16 +75,28 @@ exports.createUser = (req, res, next) => {
   if (!req.body.name) {
     return res.status(400).send('Must provide name')
   }
+<<<<<<< HEAD
   if (!req.body.address) {
     return res.status(400).send('Must provide address')
   }
   if (!req.body.classYear) {
     res.status(400).send('Must provide class year')
+=======
+  if (!req.body.phoneProvider) {
+   return res.status(400).send('Must provide phone provider') 
+  }
+  if (!req.body.phoneNumber) {
+   return res.status(400).send('Must provide phone number') 
+  }
+  if (!req.body.classYear) {
+   return res.status(400).send('Must provide class year') 
+>>>>>>> 7df4e59f4aa2e75fa8e73a1223169ed91f35e9c9
   }
   const userData = {
     email: req.body.email,
     hash: req.body.password,
     name: req.body.name,
+<<<<<<< HEAD
     isAdmin: req.body.isAdmin,
     address: req.body.address,
     classYear: req.body.classYear,
@@ -94,20 +106,37 @@ exports.createUser = (req, res, next) => {
   const newUser = new User(userData)
   newUser.save((err) => {
     if (err) return next(err) // res.status(500).send('Could not create')
+=======
+    phoneProvider: req.body.phoneProvider,
+    phoneNumber: req.body.phoneNumber,
+    classYear: req.body.classYear,
+  }
+  const newUser = new User(userData)
+  newUser.save((err) => {
+    if (err) return next(err)
+>>>>>>> 7df4e59f4aa2e75fa8e73a1223169ed91f35e9c9
     return res.json(newUser)
   })
 }
 
 exports.getAllUsers = (req, res, next) => {
   User.find({}, (err, users) => {
+<<<<<<< HEAD
     if (err) return next(err) // res.status(500).send('Error: ' + err)
+=======
+    if (err) return next(err)
+>>>>>>> 7df4e59f4aa2e75fa8e73a1223169ed91f35e9c9
     return res.json(users)
   })
 }
 
 exports.getUserById = (req, res, next) => {
   User.findById(req.params.userId, (err, user) => {
+<<<<<<< HEAD
     if (err) return next(err) // res.sendStatus(500)
+=======
+    if (err) return next(err)
+>>>>>>> 7df4e59f4aa2e75fa8e73a1223169ed91f35e9c9
     if (!user) return res.status(404).send('No user with id: ' + req.params.userId)
     return res.json(user)    
   })
@@ -115,7 +144,11 @@ exports.getUserById = (req, res, next) => {
 
 exports.getUserByEmail = (req, res, next) => {
   User.findOne({ email: req.params.email }, (err, user) => {
+<<<<<<< HEAD
     if (err) return next(err) // res.sendStatus(500)
+=======
+    if (err) return next(err)
+>>>>>>> 7df4e59f4aa2e75fa8e73a1223169ed91f35e9c9
     if (!user) return res.status(404).send('No user with email: ' + req.params.email)
     return res.json(user)    
   })
@@ -123,9 +156,13 @@ exports.getUserByEmail = (req, res, next) => {
 
 exports.updateUser = (req, res, next) => {
   User.findOneAndUpdate({ _id: req.params.userId }, req.body, {}, (err, user) => {
+<<<<<<< HEAD
     if (err) return next(err) // res.sendStatus(500)
+=======
+    if (err) return next(err)
+>>>>>>> 7df4e59f4aa2e75fa8e73a1223169ed91f35e9c9
     if (!user) return res.status(404).send('Could not find user: ' + req.params.userId)
-    return res.json(user)
+    return res.send('Updated user!')
   })
 }
 exports.deleteUser = (req, res, next) => {

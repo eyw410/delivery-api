@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', routes)
 
+
 // if user tries to access page that wasn't implemented, returns 404 not found
 app.use((req, res, next) => {
   const err = new Error('Not found')
@@ -32,7 +33,7 @@ app.use((req, res, next) => {
 
 app.use((err, req, res, next) => {
   console.log(err)
-  res.sendStatus(err.status || 500)
+  return res.sendStatus(err.status || 500)
 })
 
 app.listen(config.port, function () {
