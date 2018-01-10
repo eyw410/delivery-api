@@ -17,6 +17,9 @@ router.route('/users/:userId/id')
   .put(users.updateUser)
   .delete(users.deleteUser)
 
+router.route('/users/:userId/checkout')
+	.put(users.checkout)
+
 router.route('/users/:email/email')
   .get(users.getUserByEmail)
 
