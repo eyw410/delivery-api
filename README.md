@@ -1,2 +1,2 @@
-# coupon-api
-API for our Crimson Coupon app
+# delivery-api
+API for our delivery app
